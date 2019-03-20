@@ -8,7 +8,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,21 +18,19 @@ import android.widget.Toast;
 
 import com.example.newbiechen.ireader.R;
 import com.example.newbiechen.ireader.ui.base.BaseTabActivity;
+import com.example.newbiechen.ireader.ui.dialog.SexChooseDialog;
 import com.example.newbiechen.ireader.ui.fragment.BookShelfFragment;
 import com.example.newbiechen.ireader.ui.fragment.CommunityFragment;
 import com.example.newbiechen.ireader.ui.fragment.FindFragment;
 import com.example.newbiechen.ireader.utils.Constant;
 import com.example.newbiechen.ireader.utils.PermissionsChecker;
 import com.example.newbiechen.ireader.utils.SharedPreUtils;
-import com.example.newbiechen.ireader.ui.dialog.SexChooseDialog;
 import com.example.newbiechen.ireader.utils.ToastUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
 
 public class MainActivity extends BaseTabActivity{
     /*************Constant**********/
@@ -118,15 +115,15 @@ public class MainActivity extends BaseTabActivity{
             case R.id.action_search:
                 activityCls = SearchActivity.class;
                 break;
-            case R.id.action_login:
-                break;
-            case R.id.action_my_message:
-                break;
+//            case R.id.action_login:
+//                break;
+//            case R.id.action_my_message:
+//                break;
             case R.id.action_download:
                 activityCls = DownloadActivity.class;
                 break;
-            case R.id.action_sync_bookshelf:
-                break;
+//            case R.id.action_sync_bookshelf:
+//                break;
             case R.id.action_scan_local_book:
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M){
@@ -145,14 +142,22 @@ public class MainActivity extends BaseTabActivity{
 
                 activityCls = FileSystemActivity.class;
                 break;
-            case R.id.action_wifi_book:
-                break;
-            case R.id.action_feedback:
-                break;
-            case R.id.action_night_mode:
-                break;
-            case R.id.action_settings:
-                break;
+//            case R.id.action_wifi_book:
+//                break;
+//            case R.id.action_feedback:
+//                break;
+//            case R.id.action_night_mode:
+//                if (SharedPreUtils.getInstance().getBoolean(Constant.ISNIGHT, false)) {
+//                    SharedPreUtils.getInstance().putBoolean(Constant.ISNIGHT, false);
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                } else {
+//                    SharedPreUtils.getInstance().putBoolean(Constant.ISNIGHT, true);
+//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                }
+//                recreate();
+//                break;
+//            case R.id.action_settings:
+//                break;
             default:
                 break;
         }

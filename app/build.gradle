@@ -13,10 +13,99 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-    buildTypes {
+    signingConfigs {
+        debug {
+            storeFile file("/Users/vivo/WorkSpace/Envs/android-key/dmc.keystore")
+            storePassword "young123"
+            keyAlias "dmc.keystore"
+            keyPassword "young123"
+        }
+
         release {
+            storeFile file("/Users/vivo/WorkSpace/Envs/android-key/dmc.keystore")
+            storePassword "young123"
+            keyAlias "dmc.keystore"
+            keyPassword "young123"
+        }
+    }
+
+    flavorDimensions "version"
+
+    productFlavors {
+
+        OPPO {
+            dimension "version"
+//            applicationId "com.avalon.oppo"
+        }
+        vivo {
+            dimension "version"
+//            applicationId "com.avalon.vivo"
+        }
+        HUAWEI {
+            dimension "version"
+//            applicationId "com.avalon.huawei"
+        }
+        xiaomi {
+            dimension "version"
+//            applicationId "com.avalon.xiaomi"
+        }
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+        }
+
+    }
+
+//    productFlavors {
+//        OPPO {
+//            manifestPlaceholders = [CHANNEL_VALUE: "OPPO"]
+//            dimension "version"
+//            applicationId "com.avalon.oppo"
+//        }
+//        vivo {
+//            manifestPlaceholders = [CHANNEL_VALUE: "vivo"]
+//            dimension "version"
+//            applicationId "com.avalon.vivo"
+//        }
+//        HUAWEI {
+//            manifestPlaceholders = [CHANNEL_VALUE: "HUAWEI"]
+//            dimension "version"
+//            applicationId "com.avalon.huawei"
+//        }
+//        xiaomi {
+//            manifestPlaceholders = [CHANNEL_VALUE: "xiaomi"]
+//            dimension "version"
+//            applicationId "com.avalon.xiaomi"
+//        }
+//    }
+
+    buildTypes {
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            //混淆
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -73,4 +162,6 @@ dependencies {
     // Android Leak Analysis
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+
+    implementation "org.apache.commons:commons-collections4:$rootProject.commonCollections4Version"
 }

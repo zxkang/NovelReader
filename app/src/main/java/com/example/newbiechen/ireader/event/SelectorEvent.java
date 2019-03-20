@@ -3,7 +3,6 @@ package com.example.newbiechen.ireader.event;
 import com.example.newbiechen.ireader.model.flag.BookDistillate;
 import com.example.newbiechen.ireader.model.flag.BookSort;
 import com.example.newbiechen.ireader.model.flag.BookType;
-import com.example.newbiechen.ireader.utils.Constant;
 
 /**
  * Created by newbiechen on 17-4-21.

@@ -29,6 +29,7 @@ public abstract class BaseTabActivity extends BaseActivity {
 
     /**************abstract***********/
     protected abstract List<Fragment> createTabFragments();
+
     protected abstract List<String> createTabTitles();
 
     /*****************rewrite method***************************/
@@ -38,7 +39,7 @@ public abstract class BaseTabActivity extends BaseActivity {
         setUpTabLayout();
     }
 
-    private void setUpTabLayout(){
+    private void setUpTabLayout() {
         mFragmentList = createTabFragments();
         mTitleList = createTabTitles();
 
@@ -53,8 +54,8 @@ public abstract class BaseTabActivity extends BaseActivity {
     /**
      * 检查输入的参数是否正确。即Fragment和title是成对的。
      */
-    private void checkParamsIsRight(){
-        if (mFragmentList == null || mTitleList == null){
+    private void checkParamsIsRight() {
+        if (mFragmentList == null || mTitleList == null) {
             throw new IllegalArgumentException("fragmentList or titleList doesn't have null");
         }
 
@@ -63,7 +64,7 @@ public abstract class BaseTabActivity extends BaseActivity {
     }
 
     /******************inner class*****************/
-    class TabFragmentPageAdapter extends FragmentPagerAdapter{
+    class TabFragmentPageAdapter extends FragmentPagerAdapter {
 
         public TabFragmentPageAdapter(FragmentManager fm) {
             super(fm);
@@ -83,5 +84,15 @@ public abstract class BaseTabActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             return mTitleList.get(position);
         }
+    }
+
+    /**
+     * 选择tab页面;
+     *
+     * @param index 页面编号;
+     */
+    public void setCurrentItem(int index) {
+        if (index >= mTlIndicator.getTabCount()) return;
+        mTlIndicator.getTabAt(index).select();
     }
 }

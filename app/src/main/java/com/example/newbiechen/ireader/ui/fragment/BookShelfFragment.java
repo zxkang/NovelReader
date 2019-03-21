@@ -21,6 +21,7 @@ import com.example.newbiechen.ireader.model.bean.CollBookBean;
 import com.example.newbiechen.ireader.model.local.BookRepository;
 import com.example.newbiechen.ireader.presenter.BookShelfPresenter;
 import com.example.newbiechen.ireader.presenter.contract.BookShelfContract;
+import com.example.newbiechen.ireader.ui.activity.MainActivity;
 import com.example.newbiechen.ireader.ui.activity.ReadActivity;
 import com.example.newbiechen.ireader.ui.adapter.CollBookAdapter;
 import com.example.newbiechen.ireader.ui.base.BaseMVPFragment;
@@ -335,6 +336,8 @@ public class BookShelfFragment extends BaseMVPFragment<BookShelfContract.Present
             view.setOnClickListener(
                     (v) -> {
                         //设置RxBus回调
+//                        ToastUtils.show("将要跳转到小说添加页面！");
+                        ((MainActivity) getActivity()).setCurrentItem(2);
                     }
             );
             return view;

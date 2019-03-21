@@ -1,6 +1,8 @@
 package com.example.newbiechen.ireader.model.bean;
 
 import com.example.newbiechen.ireader.model.bean.BaseBean;
+import com.example.newbiechen.ireader.utils.Constant;
+import com.example.newbiechen.ireader.utils.StringUtils;
 
 import java.util.List;
 
@@ -326,6 +328,7 @@ public class BookDetailBean{
         bean.setUpdated(getUpdated());
         bean.setChaptersCount(getChaptersCount());
         bean.setLastChapter(getLastChapter());
+        bean.setLastRead(StringUtils.dateConvert(System.currentTimeMillis(), Constant.FORMAT_BOOK_DATE));
         return bean;
     }
 }

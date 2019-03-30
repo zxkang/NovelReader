@@ -15,14 +15,14 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file("/Users/vivo/WorkSpace/Envs/android-key/dmc.keystore")
+            storeFile file("/Users/zxkang/WorkSpace/Envs/android-key/dmc.keystore")
             storePassword "young123"
             keyAlias "dmc.keystore"
             keyPassword "young123"
         }
 
         release {
-            storeFile file("/Users/vivo/WorkSpace/Envs/android-key/dmc.keystore")
+            storeFile file("/Users/zxkang/WorkSpace/Envs/android-key/dmc.keystore")
             storePassword "young123"
             keyAlias "dmc.keystore"
             keyPassword "young123"

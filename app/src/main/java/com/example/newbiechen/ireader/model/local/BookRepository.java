@@ -188,8 +188,10 @@ public class BookRepository {
 
     //TODO:需要进行获取编码并转换的问题
     public ChapterInfoBean getChapterInfoBean(String folderName,String fileName){
+//        File file = new File(Constant.BOOK_CACHE_PATH + folderName
+//                + File.separator + fileName + FileUtils.SUFFIX_NB);
         File file = new File(Constant.BOOK_CACHE_PATH + folderName
-                + File.separator + fileName + FileUtils.SUFFIX_NB);
+                + File.separator + fileName + FileUtils.SUFFIX_TXT);
         if (!file.exists()) return null;
         Reader reader = null;
         String str = null;

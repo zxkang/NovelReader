@@ -67,19 +67,18 @@
     <color name="nb.download.finish">#8bd715</color>
     
     <!--read-->
-    <color name="nb.read.bg_1">#CEC29C</color>
-    <color name="nb.read.bg_2">#CCEBCC</color>
-    <color name="nb.read.bg_3">#AAAAAA</color>
-    <color name="nb.read.bg_4">#D1CEC5</color>
+    <color name="nb.read.bg_1">#F8F7F5</color>
+    <color name="nb.read.bg_2">#474646</color>
+    <color name="nb.read.bg_3">#CCEBCC</color>
+    <color name="nb.read.bg_4">#CEC29C</color>
     <color name="nb.read.bg_5">#001C27</color>
     <color name="nb.read.bg_6">#DDCEC29C</color>
-    
-    
-    <color name="nb.read.font_1">#2C2C2C</color>
-    <color name="nb.read.font_2">#2F332D</color>
-    <color name="nb.read.font_3">#92918C</color>
-    <color name="nb.read.font_4">#383429</color>
-    <color name="nb.read.font_5">#627176</color>
+
+    <color name="nb.read.font_1">#383429</color>
+    <color name="nb.read.font_2">#E3E0E0</color>
+    <color name="nb.read.font_3">#2F332D</color>
+    <color name="nb.read.font_4">#2C2C2C</color>
+    <color name="nb.read.font_5">#1B1C1C</color>
     
     <color name="nb.read.bg.night">#000000</color>
     <color name="nb.read.font_night">#99ffffff</color>

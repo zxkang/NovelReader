@@ -4,16 +4,22 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.newbiechen.ireader.R;
@@ -25,12 +31,18 @@ import com.example.newbiechen.ireader.ui.fragment.FindFragment;
 import com.example.newbiechen.ireader.utils.Constant;
 import com.example.newbiechen.ireader.utils.PermissionsChecker;
 import com.example.newbiechen.ireader.utils.SharedPreUtils;
+import com.example.newbiechen.ireader.utils.StringUtils;
 import com.example.newbiechen.ireader.utils.ToastUtils;
+import com.example.newbiechen.ireader.widget.page.PageLoader;
+import com.example.newbiechen.ireader.widget.page.PageView;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.Optional;
 
 public class MainActivity extends BaseTabActivity{
     /*************Constant**********/
@@ -87,6 +99,7 @@ public class MainActivity extends BaseTabActivity{
         super.initWidget();
         //性别选择框
         showSexChooseDialog();
+
     }
 
     private void showSexChooseDialog(){
@@ -147,14 +160,6 @@ public class MainActivity extends BaseTabActivity{
 //            case R.id.action_feedback:
 //                break;
 //            case R.id.action_night_mode:
-//                if (SharedPreUtils.getInstance().getBoolean(Constant.ISNIGHT, false)) {
-//                    SharedPreUtils.getInstance().putBoolean(Constant.ISNIGHT, false);
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                } else {
-//                    SharedPreUtils.getInstance().putBoolean(Constant.ISNIGHT, true);
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                }
-//                recreate();
 //                break;
 //            case R.id.action_settings:
 //                break;

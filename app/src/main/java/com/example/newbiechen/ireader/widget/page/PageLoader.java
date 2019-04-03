@@ -11,6 +11,9 @@ import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 
+import com.example.newbiechen.ireader.App;
+import com.example.newbiechen.ireader.RxBus;
+import com.example.newbiechen.ireader.event.SimTraConvertEvent;
 import com.example.newbiechen.ireader.model.bean.BookRecordBean;
 import com.example.newbiechen.ireader.model.bean.CollBookBean;
 import com.example.newbiechen.ireader.model.local.BookRepository;
@@ -28,11 +31,14 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleObserver;
 import io.reactivex.SingleOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by newbiechen on 17-7-1.
@@ -141,6 +147,8 @@ public abstract class PageLoader {
     //上一章的记录
     private int mLastChapterPos = 0;
 
+    private Observable<SimTraConvertEvent> convertObservable;
+
     /*****************************init params*******************************/
     public PageLoader(PageView pageView, CollBookBean collBook) {
         mPageView = pageView;
@@ -156,6 +164,8 @@ public abstract class PageLoader {
         initPageView();
         // 初始化书籍
         prepareBook();
+
+        registerConvertObservable();
     }
 
     private void initData() {
@@ -356,6 +366,32 @@ public abstract class PageLoader {
         mTipPaint.setTextSize(textSize);
 
         // 如果屏幕大小加载完成
+        mPageView.drawCurPage(false);
+    }
+
+
+    /**
+     * 设置简繁字体切换
+     *
+     */
+    public void simTraConverter() {
+        mPrePageList = null;
+        mNextPageList = null;
+
+        // 如果当前已经显示数据
+        if (isChapterListPrepare && mStatus == STATUS_FINISH) {
+            // 重新计算当前页面
+            dealLoadPageList(mCurChapterPos);
+
+            // 防止在最后一页，通过修改字体，以至于页面数减少导致崩溃的问题
+            if (mCurPage.position >= mCurPageList.size()) {
+                mCurPage.position = mCurPageList.size() - 1;
+            }
+
+            // 重新获取指定页面
+            mCurPage = mCurPageList.get(mCurPage.position);
+        }
+
         mPageView.drawCurPage(false);
     }
 
@@ -874,6 +910,7 @@ public abstract class PageLoader {
                 //计算文字显示的起始点
                 int start = (int) (mDisplayWidth - mTitlePaint.measureText(str)) / 2;
                 //进行绘制
+//                canvas.drawText(StringUtils.convertCC(str, App.getContext()), start, top, mTitlePaint);
                 canvas.drawText(str, start, top, mTitlePaint);
 
                 //设置尾部间距
@@ -889,6 +926,7 @@ public abstract class PageLoader {
             for (int i = mCurPage.titleLines; i < mCurPage.lines.size(); ++i) {
                 str = mCurPage.lines.get(i);
 
+//                canvas.drawText(StringUtils.convertCC(str, App.getContext()), mMarginWidth, top, mTextPaint);
                 canvas.drawText(str, mMarginWidth, top, mTextPaint);
                 if (str.endsWith("\n")) {
                     top += para;
@@ -1118,6 +1156,18 @@ public abstract class PageLoader {
             mPageChangeListener.onChapterChange(mCurChapterPos);
             mPageChangeListener.onPageCountChange(mCurPageList != null ? mCurPageList.size() : 0);
         }
+    }
+
+    private void registerConvertObservable() {
+        convertObservable = RxBus.getInstance().toObservable(SimTraConvertEvent.class);
+
+        convertObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(
+                new Consumer<SimTraConvertEvent>() {
+                    @Override
+                    public void accept(SimTraConvertEvent simTraConvertEvent) throws Exception {
+                        simTraConverter();
+                    }
+                });
     }
 
     // 预加载下一章

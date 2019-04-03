@@ -113,6 +113,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildToolsVersion '26.0.2'
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 greendao{

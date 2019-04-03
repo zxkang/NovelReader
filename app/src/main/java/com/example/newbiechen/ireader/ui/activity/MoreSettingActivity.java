@@ -1,6 +1,7 @@
 package com.example.newbiechen.ireader.ui.activity;
 
 import android.os.Bundle;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.widget.RelativeLayout;
@@ -8,6 +9,8 @@ import android.widget.Spinner;
 import android.view.View;
 
 import com.example.newbiechen.ireader.R;
+import com.example.newbiechen.ireader.RxBus;
+import com.example.newbiechen.ireader.event.SimTraConvertEvent;
 import com.example.newbiechen.ireader.model.local.ReadSettingManager;
 import com.example.newbiechen.ireader.ui.base.BaseActivity;
 
@@ -21,7 +24,7 @@ import android.widget.ArrayAdapter;
  * 阅读界面的更多设置
  */
 
-public class MoreSettingActivity extends BaseActivity{
+public class MoreSettingActivity extends BaseActivity {
     @BindView(R.id.more_setting_rl_volume)
     RelativeLayout mRlVolume;
     @BindView(R.id.more_setting_sc_volume)
@@ -38,6 +41,7 @@ public class MoreSettingActivity extends BaseActivity{
     private boolean isVolumeTurnPage;
     private boolean isFullScreen;
     private int convertType;
+
     @Override
     protected int getContentId() {
         return R.layout.activity_more_setting;
@@ -64,7 +68,7 @@ public class MoreSettingActivity extends BaseActivity{
         initSwitchStatus();
     }
 
-    private void initSwitchStatus(){
+    private void initSwitchStatus() {
         mScVolume.setChecked(isVolumeTurnPage);
         mScFullScreen.setChecked(isFullScreen);
     }
@@ -74,10 +78,9 @@ public class MoreSettingActivity extends BaseActivity{
         super.initClick();
         mRlVolume.setOnClickListener(
                 (v) -> {
-                    if (isVolumeTurnPage){
+                    if (isVolumeTurnPage) {
                         isVolumeTurnPage = false;
-                    }
-                    else {
+                    } else {
                         isVolumeTurnPage = true;
                     }
                     mScVolume.setChecked(isVolumeTurnPage);
@@ -87,10 +90,9 @@ public class MoreSettingActivity extends BaseActivity{
 
         mRlFullScreen.setOnClickListener(
                 (v) -> {
-                    if (isFullScreen){
+                    if (isFullScreen) {
                         isFullScreen = false;
-                    }
-                    else {
+                    } else {
                         isFullScreen = true;
                     }
                     mScFullScreen.setChecked(isFullScreen);
@@ -104,8 +106,11 @@ public class MoreSettingActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.conversion_type_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.array.conversion_type_array, R.layout.item_select);
+        adapter.setDropDownViewResource(R.layout.item_drop);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.conversion_type_array, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mScConvertType.setAdapter(adapter);
 
         // initSwitchStatus() be called earlier than onCreate(), so setSelection() won't work
@@ -116,11 +121,15 @@ public class MoreSettingActivity extends BaseActivity{
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mSettingManager.setConvertType(position);
                 convertType = position;
+                RxBus.getInstance().post(new SimTraConvertEvent());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
+
+
         });
     }
 }

@@ -1,22 +1,16 @@
 package com.example.newbiechen.ireader.ui.base;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+//import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
-import com.example.newbiechen.ireader.BuildConfig;
 import com.example.newbiechen.ireader.R;
-import com.example.newbiechen.ireader.utils.StatusBarCompat;
+//import com.example.newbiechen.ireader.utils.StatusBarCompat;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -27,7 +21,7 @@ import io.reactivex.disposables.Disposable;
  * Created by PC on 2016/9/8.
  */
 public abstract class BaseActivity extends AppCompatActivity {
-    private static final int INVALID_VAL = -1;
+//    private static final int INVALID_VAL = -1;
 
     protected CompositeDisposable mDisposable;
     //ButterKnife
@@ -49,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 配置Toolbar
-     * @param toolbar
+     * @param toolbar 工具栏
      */
     protected void setUpToolbar(Toolbar toolbar){
     }
@@ -127,7 +121,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         return actionBar;
     }
 
-    protected void setStatusBarColor(int statusColor){
-        StatusBarCompat.compat(this, ContextCompat.getColor(this, statusColor));
-    }
+//    protected void setStatusBarColor(int statusColor){
+//        StatusBarCompat.compat(this, ContextCompat.getColor(this, statusColor));
+//    }
+
 }

@@ -16,11 +16,13 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.newbiechen.ireader.R;
 import com.example.newbiechen.ireader.model.local.Void;
 import com.example.newbiechen.ireader.utils.PermissionsChecker;
+import com.example.newbiechen.ireader.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,6 +76,8 @@ public class SplashActivity extends AppCompatActivity {
             //是否应该展示详细信息
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                //请求权限
+                ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSIONS_REQUEST_STORAGE);
 
                 // Show an expanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -82,6 +86,11 @@ public class SplashActivity extends AppCompatActivity {
                 //请求权限
                 ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSIONS_REQUEST_STORAGE);
             }
+        }else{
+            //自动跳过
+            mTvSkip.postDelayed(skipRunnable,WAIT_TIME);
+            //点击跳过
+            mTvSkip.setOnClickListener((view) -> skipToMain());
         }
     }
 
@@ -99,14 +108,16 @@ public class SplashActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case PERMISSIONS_REQUEST_STORAGE: {
-/*                // 如果取消权限，则返回的值为0
+                // 如果取消权限，则返回的值为0
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //申请权限成功
-
+                    ToastUtils.show("权限申请成功！");
                 } else {
                     //申请权限失败
-                }*/
+                    ToastUtils.show("禁用存储权限将导致无法缓存哦！");
+                }
+
 
                 //自动跳过
                 mTvSkip.postDelayed(skipRunnable,WAIT_TIME);
